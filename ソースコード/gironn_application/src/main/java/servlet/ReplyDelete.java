@@ -18,19 +18,20 @@ import logic.ReplyItemLogic;
 @WebServlet("/ReplyDelete")
 public class ReplyDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReplyDelete() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ReplyDelete() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -38,36 +39,35 @@ public class ReplyDelete extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		//削除フラグのnullチェック
 		int isDeleted = 0;
-		if(request.getParameter("isDeleted") != null) {
+		if (request.getParameter("isDeleted") != null) {
 			isDeleted = Integer.parseInt(request.getParameter("isDeleted"));
 		}
-		
-		try {	
+
+		try {
 			ReplyItemLogic replyLogic = new ReplyItemLogic();
-			
+
 			//議論コメント削除
-			if(!replyLogic.delete(id,isDeleted)) {
+			if (!replyLogic.delete(id, isDeleted)) {
 				// エラーがあったときは、エラーページへ
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
 				dispatcher.forward(request, response);
 			}
-			
+
 			//コメント一覧表示に使用するため
 			int gidaiId = Integer.parseInt(request.getParameter("gidaiId"));
-			
+
 			//コメント一覧へリダイレクト（URLパラメータgidaiIdを設定）
-			response.sendRedirect("GironnList?gidaiId="+gidaiId);
-			
-		}catch(ClassNotFoundException | SQLException e){
+			response.sendRedirect("GironnList?gidaiId=" + gidaiId);
+
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-	
-	}
 
 	}
 
-
+}

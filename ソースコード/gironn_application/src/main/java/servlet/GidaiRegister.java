@@ -19,42 +19,36 @@ import logic.GidaiItemLogic;
 import model.GidaiItemModel;
 import model.UserModel;
 import validation.GidaiValidation;
+
 /**
  * Servlet implementation class GidaiRegister
  */
 @WebServlet("/GidaiRegister")
 public class GidaiRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GidaiRegister() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public GidaiRegister() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 	}
 
 	/**sssss
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		//議題名とジャンルのリクエストパラメーターを取得
 		String gidaiName = request.getParameter("gidaiName");
 		int genre = Integer.parseInt(request.getParameter("genre"));
@@ -62,24 +56,22 @@ public class GidaiRegister extends HttpServlet {
 		Date today = new Date();
 		request.setAttribute("today", today);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = simpleDateFormat.format(today);
-        java.sql.Date registrationDate = java.sql.Date.valueOf(formattedDate);
+		String formattedDate = simpleDateFormat.format(today);
+		java.sql.Date registrationDate = java.sql.Date.valueOf(formattedDate);
 
-		
-		
 		try {
 			//バリデーションチェック
 			GidaiValidation validate = new GidaiValidation(request);
-			Map<String,String> errors = validate.validate();
+			Map<String, String> errors = validate.validate();
 			//バリデーションエラーがあった場合
-			if(validate.hasErrors()) {
+			if (validate.hasErrors()) {
 				//JSPのinputタグのvalue値の表示に使うためにリクエストパラメータをMapに保存する。
-				request.setAttribute("errors",errors);
-				
-				Map<String,String> gidaiItem = new HashMap<String,String>();
-				gidaiItem.put("gidaiName",gidaiName );
-				request.setAttribute("gidaiItem",gidaiItem);
-				
+				request.setAttribute("errors", errors);
+
+				Map<String, String> gidaiItem = new HashMap<String, String>();
+				gidaiItem.put("gidaiName", gidaiName);
+				request.setAttribute("gidaiItem", gidaiItem);
+
 				// 登録ページへフォワードして終了する。
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 				dispatcher.forward(request, response);
@@ -88,7 +80,7 @@ public class GidaiRegister extends HttpServlet {
 			}
 			//セッションスコープからユーザー情報を取得
 			HttpSession session = request.getSession();
-			UserModel user = (UserModel)session.getAttribute("user");
+			UserModel user = (UserModel) session.getAttribute("user");
 
 			//議題モデルに保存
 			GidaiItemModel gidaiItem = new GidaiItemModel();
@@ -108,6 +100,6 @@ public class GidaiRegister extends HttpServlet {
 		}
 		//Mainサーブレットへリダイレクト
 		response.sendRedirect("Main");
-		}
+	}
 
 }

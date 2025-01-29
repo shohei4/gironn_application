@@ -1,6 +1,5 @@
 package logic;
 
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -8,11 +7,12 @@ import java.util.List;
 import dao.GironnItemDAO;
 import database.DBConnection;
 import model.GironnItemModel;
+
 /**
  * GironnItemのロジッククラス
  */
 public class GironnItemLogic {
-	
+
 	/**
 	 * GironnItemを全件取得
 	 * 
@@ -22,15 +22,15 @@ public class GironnItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<GironnItemModel> findAll(int gidaiId,int userId) throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public List<GironnItemModel> findAll(int gidaiId, int userId) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
-					GironnItemDAO dao = new GironnItemDAO();
-			
-			return dao.findAll(conn,gidaiId,userId);
+			GironnItemDAO dao = new GironnItemDAO();
+
+			return dao.findAll(conn, gidaiId, userId);
 		}
 	}
-	
+
 	/**
 	 * GidaiItemをキーワードで検索
 	 * 
@@ -41,15 +41,16 @@ public class GironnItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<GironnItemModel> findByKeyWord(String keyWord,int gidaiId,int userId)throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public List<GironnItemModel> findByKeyWord(String keyWord, int gidaiId, int userId)
+			throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
-					GironnItemDAO dao = new GironnItemDAO();
-					
+			GironnItemDAO dao = new GironnItemDAO();
+
 			return dao.findByKeyWord(conn, keyWord, gidaiId, userId);
 		}
 	}
-	
+
 	/**
 	 * GironnItemを１件追加
 	 * 
@@ -58,15 +59,15 @@ public class GironnItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean create(GironnItemModel model)throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean create(GironnItemModel model) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			GironnItemDAO dao = new GironnItemDAO();
-			
-			return dao.create(conn,model);
+
+			return dao.create(conn, model);
 		}
 	}
-	
+
 	/**
 	 * GironnItemを１件更新
 	 * 
@@ -76,14 +77,14 @@ public class GironnItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean update(GironnItemModel model,int id)throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean update(GironnItemModel model, int id) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			GironnItemDAO dao = new GironnItemDAO();
-			return dao.update(conn,model,id);
+			return dao.update(conn, model, id);
 		}
 	}
-	
+
 	/**
 	 * GironnItemを１件削除
 	 * 
@@ -93,8 +94,8 @@ public class GironnItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean delete(int id,int isDeleted)throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean delete(int id, int isDeleted) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			GironnItemDAO dao = new GironnItemDAO();
 			return dao.delete(conn, id, isDeleted);

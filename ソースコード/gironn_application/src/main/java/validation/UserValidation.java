@@ -13,8 +13,6 @@ import validationUtil.ValidationUtil;
  */
 public class UserValidation extends Validation {
 
-	
-
 	/**
 	 * コンストラクタ
 	 * @param request　リクエストオブジェクト
@@ -22,7 +20,7 @@ public class UserValidation extends Validation {
 	public UserValidation(HttpServletRequest request) {
 		super(request);
 	}
-	
+
 	/**
 	 * バリデーションチェック
 	 * 
@@ -46,7 +44,7 @@ public class UserValidation extends Validation {
 		if (!ValidationUtil.isMaxLength(this.request.getParameter("name"), 50)) {
 			this.errors.put("name", String.format(MessageSettings.MSG_LENGTH_LONG, "ニックネーム", 50));
 		}
-		
+
 		return errors;
 	}
 

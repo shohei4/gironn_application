@@ -12,7 +12,7 @@ import model.GidaiItemModel;
  * GrionnItemのロジッククラス
  */
 public class GidaiItemLogic {
-	
+
 	/**
 	 * GidaiItemを全件取得
 	 * 
@@ -22,15 +22,15 @@ public class GidaiItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<GidaiItemModel> findAll(int userId,String userName) throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public List<GidaiItemModel> findAll(int userId, String userName) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
-					GidaiItemDAO dao = new GidaiItemDAO();
-			
-			return dao.findAll(conn,userId,userName);
+			GidaiItemDAO dao = new GidaiItemDAO();
+
+			return dao.findAll(conn, userId, userName);
 		}
 	}
-	
+
 	/**
 	 * GidaiItemをキーワードで検索
 	 * 
@@ -41,15 +41,61 @@ public class GidaiItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<GidaiItemModel> findByKeyWord(String keyWord,int userId,String userName) throws ClassNotFoundException,SQLException{
-		try (DBConnection db = new DBConnection()){
+	public List<GidaiItemModel> findByKeyWord(String keyWord, int userId, String userName)
+			throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			GidaiItemDAO dao = new GidaiItemDAO();
-				
-				return dao.findByKeyWord(conn,keyWord,userId,userName);
+
+			return dao.findByKeyWord(conn, keyWord, userId, userName);
 		}
 	}
 	
+	/**
+	 * GidaiItemをジャンル検索
+	 * @param genre
+	 * @param userId
+	 * @param userName
+	 * @return	GidaiIteModelのArrayList
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<GidaiItemModel> findByGenre(int genre, int userId, String userName)
+			throws ClassNotFoundException, SQLException {
+
+		try (DBConnection db = new DBConnection()) {
+
+			Connection conn = db.getInstance();
+			GidaiItemDAO dao = new GidaiItemDAO();
+
+			return dao.findByGenre(conn, genre, userId, userName);
+
+		}
+	}
+	
+	/**
+	 * GidaiItemItemsをキーワードとジャンルで検索
+	 * @param keyWord
+	 * @param genre
+	 * @param userId
+	 * @param userName
+	 * @return GidaiItemModelのArrayList
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<GidaiItemModel> serch(String keyWord, int genre, int userId, String userName)
+			throws ClassNotFoundException, SQLException {
+
+		try (DBConnection db = new DBConnection()) {
+
+			Connection conn = db.getInstance();
+			GidaiItemDAO dao = new GidaiItemDAO();
+
+			return dao.serch(conn, keyWord, genre, userId, userName);
+
+		}
+	}
+
 	/**
 	 * GidaiItemを１件追加
 	 * 
@@ -58,15 +104,15 @@ public class GidaiItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean create(GidaiItemModel model) throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean create(GidaiItemModel model) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			GidaiItemDAO dao = new GidaiItemDAO();
-			
-			return dao.create(conn,model);
+
+			return dao.create(conn, model);
 		}
 	}
-	
+
 	/**
 	 * GidaiItemを１件削除
 	 * 
@@ -75,12 +121,12 @@ public class GidaiItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean delete(int id)throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean delete(int id) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			GidaiItemDAO dao = new GidaiItemDAO();
-			
-			return dao.delete(conn,id);
+
+			return dao.delete(conn, id);
 		}
 	}
 }

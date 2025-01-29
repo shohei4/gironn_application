@@ -10,7 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter( filterName = "AddHeaderFilter") // フィルタを実行するURLは/WEB-INF/web.xmlで指定する。
+@WebFilter(filterName = "AddHeaderFilter") // フィルタを実行するURLは/WEB-INF/web.xmlで指定する。
 public class AddHeaderFilter implements Filter {
 
 	/**

@@ -17,7 +17,7 @@ public class ReplyDAO {
 	 * @param commentId
 	 * @return　ReplyItemのArrayList
 	 */
-	public List<ReplyItemModel> findAll(Connection connection,int commentId){
+	public List<ReplyItemModel> findAll(Connection connection, int commentId) {
 		List<ReplyItemModel> list = new ArrayList<ReplyItemModel>();
 		try {
 			String sql = "SELECT reply.id,"
@@ -35,36 +35,35 @@ public class ReplyDAO {
 					+ "WHERE reply.comment_id=? "
 					+ "AND reply.is_deleted=0 "
 					+ "ORDER BY registration_date";
-			try(PreparedStatement stmt = connection.prepareStatement(sql)){
+			try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 				stmt.setInt(1, commentId);
-				
-				
-				try(ResultSet rs = stmt.executeQuery()){
-				while(rs.next()) {
-					ReplyItemModel model = new ReplyItemModel();
-					model.setId(rs.getInt("id"));
-					model.setUserId(rs.getInt("user_id"));
-					model.setUserName(rs.getString("name"));
-					model.setRegistrationDate(rs.getDate("registration_date"));
-					model.setComment(rs.getString("comment"));
-					//favoriteに入れる値はfavoriteテーブルにgironnテーブルと共通のid,userIdがあるときに変化する
-					model.setIsDeleted(rs.getInt("is_deleted"));
-					model.setCreatedAt(rs.getTimestamp("created_at"));
-					model.setUpdatedAt(rs.getTimestamp("updated_at"));
-					
-					list.add(model);
+
+				try (ResultSet rs = stmt.executeQuery()) {
+					while (rs.next()) {
+						ReplyItemModel model = new ReplyItemModel();
+						model.setId(rs.getInt("id"));
+						model.setUserId(rs.getInt("user_id"));
+						model.setUserName(rs.getString("name"));
+						model.setRegistrationDate(rs.getDate("registration_date"));
+						model.setComment(rs.getString("comment"));
+						//favoriteに入れる値はfavoriteテーブルにgironnテーブルと共通のid,userIdがあるときに変化する
+						model.setIsDeleted(rs.getInt("is_deleted"));
+						model.setCreatedAt(rs.getTimestamp("created_at"));
+						model.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+						list.add(model);
+					}
 				}
-				}
-			
+
 			}
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
-			
+
 			return null;
 		}
 		return list;
 	}
-	
+
 	/**
 	 * ReplyItemを１件追加
 	 * 
@@ -90,7 +89,6 @@ public class ReplyDAO {
 				stmt.setInt(2, model.getCommentId());
 				stmt.setDate(3, model.getRegistrationDate());
 				stmt.setString(4, model.getComment());
-				
 
 				stmt.executeUpdate();
 			}
@@ -102,7 +100,7 @@ public class ReplyDAO {
 
 		return true;
 	}
-	
+
 	/**
 	 * ReplyItemを１件更新
 	 * 
@@ -111,27 +109,26 @@ public class ReplyDAO {
 	 * @param id　コメントid
 	 * @return 結果（true:成功、false:失敗）
 	 */
-	public boolean update(Connection connection , ReplyItemModel model,int id) {
-		
-		try{
+	public boolean update(Connection connection, ReplyItemModel model, int id) {
+
+		try {
 			String sql = "UPDATE reply SET "
-						+ "comment=?,"
-						+ "is_deleted=? "
-						+ "where id=?"
-						;
+					+ "comment=?,"
+					+ "is_deleted=? "
+					+ "where id=?";
 			try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-				stmt.setString(1,model.getComment());
-				stmt.setInt(2,model.getIsDeleted());
+				stmt.setString(1, model.getComment());
+				stmt.setInt(2, model.getIsDeleted());
 				stmt.setInt(3, id);
 				stmt.executeUpdate();
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * ReplyItemを１件削除
 	 * 
@@ -140,25 +137,22 @@ public class ReplyDAO {
 	 * @param isDeleted
 	 * @return　結果（true:成功、false:失敗）
 	 */
-	public boolean delete(Connection connection,int id,int isDeleted) {
+	public boolean delete(Connection connection, int id, int isDeleted) {
 		try {
 			String sql = "UPDATE reply SET "
 					+ "is_deleted=? "
-					+ "where id=?"
-					;
+					+ "where id=?";
 			try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-				stmt.setInt(1,isDeleted);
+				stmt.setInt(1, isDeleted);
 				stmt.setInt(2, id);
-				
+
 				stmt.executeUpdate();
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}
+		return true;
 	}
-		return true;		
-	}	
-		
-	
 
 }

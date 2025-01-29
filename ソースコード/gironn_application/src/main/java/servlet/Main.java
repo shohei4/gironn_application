@@ -37,7 +37,20 @@ public class Main extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//リクエストパラメータを取得
+		int genre = 0;
+		
 		try {
+			
+			//リクエストパラメータgenreのnullチェック
+			String genreStr = request.getParameter("genre");
+			
+			if(genreStr != null) {
+				
+				genre = Integer.parseInt(genreStr);
+				
+			}
+			
 			GidaiItemLogic logic = new GidaiItemLogic();
 			
 			List<GidaiItemModel> items = null;
@@ -47,13 +60,29 @@ public class Main extends HttpServlet {
 			int userId = user.getId();
 			String userName = user.getName();
 			
-			//キーワード検索
-			if(request.getParameter("key") != null) {
-			items = logic.findByKeyWord(request.getParameter("key"),userId,userName);
-			request.setAttribute("key",request.getParameter("key"));
-		} else {
-			//議題リストの表示
-			items = logic.findAll(userId,userName);
+			/*
+			 * キーワード検索かつジャンル検索
+			 * キーワード検索
+			 * ジャンル検索
+			 * 全件取得
+			 */
+			if(request.getParameter("key") != "" && request.getParameter("key") != null && genre != 0) {
+				
+				items = logic.serch(request.getParameter("key"), genre, userId, userName);
+		
+			} else if(request.getParameter("key") != "" && request.getParameter("key") != null) {
+				
+				items = logic.findByKeyWord(request.getParameter("key"),userId,userName);
+				request.setAttribute("key",request.getParameter("key"));
+			
+			} else if(genre != 0){
+			
+				items = logic.findByGenre(genre, userId, userName);
+			
+			}  else {
+			
+				//議題リストの表示
+				items = logic.findAll(userId,userName);
 			}
 
 			//議題モデルをセッションスコープに保存
@@ -64,7 +93,9 @@ public class Main extends HttpServlet {
 			dispatcher.forward(request, response);
 			
 			return;
+			
 		}catch(ClassNotFoundException | SQLException e){
+			
 			e.printStackTrace();
 			
 			return;

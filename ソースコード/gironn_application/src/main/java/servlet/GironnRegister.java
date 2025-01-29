@@ -26,19 +26,20 @@ import validation.GironnValidation;
 @WebServlet("/GironnRegister")
 public class GironnRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GironnRegister() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public GironnRegister() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -46,29 +47,30 @@ public class GironnRegister extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String comment = request.getParameter("comment");
 		//クエリストリングパラメーターでgidaiIdの値をリダイレクト先に渡すためjspから取得
-		
+
 		int gidaiId = Integer.parseInt(request.getParameter("gidaiId"));
 		//今日の日付を取得する
-				Date today = new Date();
-				request.setAttribute("today", today);
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		        String formattedDate = simpleDateFormat.format(today);
-		        java.sql.Date registrationDate = java.sql.Date.valueOf(formattedDate);
+		Date today = new Date();
+		request.setAttribute("today", today);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String formattedDate = simpleDateFormat.format(today);
+		java.sql.Date registrationDate = java.sql.Date.valueOf(formattedDate);
 		try {
 			//バリデーションチェック
 			GironnValidation validate = new GironnValidation(request);
-			Map<String,String> errors = validate.validate();
+			Map<String, String> errors = validate.validate();
 			//バリデーションエラーがあった場合
-			if(validate.hasErrors()) {
+			if (validate.hasErrors()) {
 				request.setAttribute("errors", errors);
 				//JSPのinputタグのvalue値の表示に使うためにリクエストパラメータをMapに保存する。
-				Map<String,String> gironnItem = new HashMap<String,String>();
+				Map<String, String> gironnItem = new HashMap<String, String>();
 				gironnItem.put("comment", comment);
-				request.setAttribute("gironnItem",gironnItem);
+				request.setAttribute("gironnItem", gironnItem);
 				request.setAttribute("gidaiId", gidaiId);
 				// フォワードして終了する。
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/gironnList.jsp");
@@ -78,7 +80,7 @@ public class GironnRegister extends HttpServlet {
 			}
 			//セションスコープからユーザー情報を取得
 			HttpSession session = request.getSession();
-			UserModel user = (UserModel)session.getAttribute("user");
+			UserModel user = (UserModel) session.getAttribute("user");
 			//議論モデルに保存
 			GironnItemModel gironnItem = new GironnItemModel();
 			gironnItem.setUserId(user.getId());
@@ -91,11 +93,11 @@ public class GironnRegister extends HttpServlet {
 			//logicの実行
 			GironnItemLogic logic = new GironnItemLogic();
 			logic.create(gironnItem);
-		}catch(ClassNotFoundException | SQLException e){
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 		//コメント一覧へリダイレクト（URLパラメータgidaiIdを設定）
-		response.sendRedirect("GironnList?gidaiId="+gidaiId);
+		response.sendRedirect("GironnList?gidaiId=" + gidaiId);
 	}
 
 }

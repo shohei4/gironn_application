@@ -12,7 +12,7 @@ public class DatabaseSettings {
 
 	/** データベース接続パスワード */
 	public static final String DB_PASS = "";
-	
+
 	/** データベース操作成功 */
 	public static final int DB_EXECUTION_SUCCESS = 1;
 

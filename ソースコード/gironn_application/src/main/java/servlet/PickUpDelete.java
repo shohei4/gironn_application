@@ -20,19 +20,20 @@ import model.UserModel;
 @WebServlet("/PickUpDelete")
 public class PickUpDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PickUpDelete() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public PickUpDelete() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -40,19 +41,20 @@ public class PickUpDelete extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int gidaiId =Integer.parseInt(request.getParameter("gidaiId"));
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int gidaiId = Integer.parseInt(request.getParameter("gidaiId"));
+
 		//ピックアップしたユーザー情報をセッションから取得
 		HttpSession session = request.getSession();
-		UserModel user = (UserModel)session.getAttribute("user");
-		
+		UserModel user = (UserModel) session.getAttribute("user");
+
 		//モデルに保存
 		PickUpModel model = new PickUpModel();
 		model.setGidaiId(gidaiId);
 		model.setPickUpUser(user.getId());
-		
+
 		//logic実行
 		PickUpLogic logic = new PickUpLogic();
 		try {
@@ -61,10 +63,10 @@ public class PickUpDelete extends HttpServlet {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		
+
 		//ピックアップリスト一覧へリダイレクト
 		response.sendRedirect("/gironn_application1/PickUpList");
-		
+
 	}
 
 }

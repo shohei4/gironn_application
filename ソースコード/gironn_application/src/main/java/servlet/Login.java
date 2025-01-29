@@ -43,6 +43,8 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//リクエストパラメータを取得
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		

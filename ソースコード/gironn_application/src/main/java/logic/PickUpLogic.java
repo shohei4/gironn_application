@@ -9,8 +9,8 @@ import database.DBConnection;
 import model.GidaiItemModel;
 import model.PickUpModel;
 
-public class PickUpLogic  {
-	
+public class PickUpLogic {
+
 	/**
 	 *　GidaiItemの要素PickUpModelを１件追加する
 	 * 
@@ -19,15 +19,15 @@ public class PickUpLogic  {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean create(PickUpModel model) throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean create(PickUpModel model) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			PickUpDAO dao = new PickUpDAO();
-			
-			return dao.create(conn,model);
+
+			return dao.create(conn, model);
 		}
 	}
-	
+
 	/**
 	 * PickUpテーブルにあるGidaiItemを全件取得
 	 * 
@@ -36,15 +36,15 @@ public class PickUpLogic  {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public List<GidaiItemModel>findPickUpList(int userId) throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public List<GidaiItemModel> findPickUpList(int userId) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			PickUpDAO dao = new PickUpDAO();
-			
-			return dao.findPickUpList(conn,userId);
+
+			return dao.findPickUpList(conn, userId);
 		}
 	}
-	
+
 	/**
 	 * pickUpを１件削除
 	 * 
@@ -53,12 +53,12 @@ public class PickUpLogic  {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean delete(PickUpModel model) throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean delete(PickUpModel model) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			PickUpDAO dao = new PickUpDAO();
-			
-			return dao.delete(conn,model);
+
+			return dao.delete(conn, model);
 		}
 	}
 }

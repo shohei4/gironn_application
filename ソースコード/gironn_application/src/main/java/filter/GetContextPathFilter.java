@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
  * コンテキストパスを取得するためのフィルター
  */
 public class GetContextPathFilter implements Filter {
-	
+
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		// コンテキストパスを取得し、JSPで${root_path}でアクセスできるようにする。
-				request.setAttribute("root_path", ((HttpServletRequest) request).getContextPath());
-				
-				chain.doFilter(request,response);
+		request.setAttribute("root_path", ((HttpServletRequest) request).getContextPath());
+
+		chain.doFilter(request, response);
 	}
-	
+
 }

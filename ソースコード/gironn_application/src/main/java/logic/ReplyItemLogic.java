@@ -8,7 +8,7 @@ import database.DBConnection;
 import model.ReplyItemModel;
 
 public class ReplyItemLogic {
-	
+
 	/**
 	 * ReplyItemを１件追加する
 	 * 
@@ -17,15 +17,15 @@ public class ReplyItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean create(ReplyItemModel model) throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean create(ReplyItemModel model) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			ReplyDAO dao = new ReplyDAO();
-			
-			return dao.create(conn,model);
+
+			return dao.create(conn, model);
 		}
 	}
-	
+
 	/**
 	 * ReplyItemを1件更新
 	 * 
@@ -35,14 +35,14 @@ public class ReplyItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean update(ReplyItemModel model,int id)throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean update(ReplyItemModel model, int id) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			ReplyDAO dao = new ReplyDAO();
-			return dao.update(conn,model,id);
+			return dao.update(conn, model, id);
 		}
 	}
-	
+
 	/**
 	 * GironnItemを１件削除
 	 * 
@@ -52,8 +52,8 @@ public class ReplyItemLogic {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public boolean delete(int id,int isDeleted)throws ClassNotFoundException,SQLException{
-		try(DBConnection db = new DBConnection()){
+	public boolean delete(int id, int isDeleted) throws ClassNotFoundException, SQLException {
+		try (DBConnection db = new DBConnection()) {
 			Connection conn = db.getInstance();
 			ReplyDAO dao = new ReplyDAO();
 			return dao.delete(conn, id, isDeleted);

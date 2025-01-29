@@ -3,10 +3,10 @@ package settings;
 public class PageSettings {
 	//エラー発生時のフォワード先のJSPファイル
 	public static final String PAGE_ERROR = "/WEB-INF/jsp/error.jsp";
-	
+
 	//ログインページのJSPファイル
 	public static final String LOGIN_JSP = "/WEB-INF/jsp/login.jsp";
-	
+
 	//ログインサーブレット
 	public static final String LOGIN_SERVLET = "/Login";
 }

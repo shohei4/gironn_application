@@ -51,27 +51,26 @@ public class PickUpRegister extends HttpServlet {
 		try {
 			//モデルに保存
 			PickUpModel pickUp = new PickUpModel();
-			
+
 			pickUp.setPickUpUser(user.getId());
 			pickUp.setGidaiId(gidaiId);
-			
+
 			//logicの実行
 			PickUpLogic logic = new PickUpLogic();
 			logic.create(pickUp);
-	
+
 			//セッションスコープに保存
 			session.setAttribute("pickUp", pickUp);
-			
+
 			//メインサーブレットにリダイレクト
 			response.sendRedirect("Main");
-			
+
 			return;
-			
 
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

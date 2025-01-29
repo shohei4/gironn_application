@@ -19,19 +19,20 @@ import settings.PageSettings;
 @WebServlet("/GidaiDelete")
 public class GidaiDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GidaiDelete() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public GidaiDelete() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -39,15 +40,16 @@ public class GidaiDelete extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			//議題idを取得
 			int id = Integer.parseInt(request.getParameter("id"));
 			//logicの実行
 			GidaiItemLogic logic = new GidaiItemLogic();
-			
+
 			//データベースから削除
-			if(!logic.delete(id)) {
+			if (!logic.delete(id)) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 				dispatcher.forward(request, response);
 
@@ -57,7 +59,7 @@ public class GidaiDelete extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/Main");
 
 			return;
-		}catch(ClassNotFoundException | SQLException e){
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 
 			// エラーページへフォワードする。
