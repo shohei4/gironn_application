@@ -1,7 +1,7 @@
 # サーブレット、JSPで作る議論アプリ　
 ## 開発環境
 * Windows10
-* Servlet2023-12
+* Eclipse2023-12
 * Java11/Tomcat9
 * MySQL 10.4.32
 ## 開発目的
